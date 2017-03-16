@@ -1,53 +1,34 @@
-def check(x, list_primes):
-    for prime in list_primes:
-        if x % prime == 0:
-            return False
-        else:
-            if prime * prime > x:
-                return True
+"""
+Amicable numbers
+Problem 21
+Let d(n) be defined as the sum of proper divisors of n (numbers less
+than n which divide evenly into n).
+If d(a) = b and d(b) = a, where a ≠ b, then a and b are an amicable pair and
+each of a and b are called amicable numbers.
+
+For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 and 110;
+therefore d(220) = 284. The proper divisors of 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
+
+Evaluate the sum of all the amicable numbers under 10000.
+"""
 
 
-def primes_gen():
-    primes = [2, 3]
-    yield 2
-    yield 3
-    multiple_6 = 6
-    while True:
-        for possible in [multiple_6 - 1, multiple_6 + 1]:
-            if check(possible, primes):
-                primes.append(possible)
-                yield possible
-        multiple_6 += 6
+def sum_divisors(x):
+    sum_divs = 0
+    for div in range(1, x // 2 + 1):
+        if x % div == 0:
+            sum_divs += div
+    return sum_divs
 
 
-def factorization(x):
-    result = {}
-    if x == 1:
-        return {1: 1}
-    # TODO Каждый раз по новой создаём список простых.
-    for p in primes_gen():
-        if p * p > x:
-            if x == 1:
-                return result
-            else:
-                result[x] = 1
-                return result
-        while x % p == 0:
-            x //= p
-            if p in result:
-                result[p] += 1
-            else:
-                result[p] = 1
+def problem(x):
+    result = 0
+    for a in range(3, x):
+        b = sum_divisors(a)
+        temp = sum_divisors(b)
+        if a == temp and a != b:
+            result += a
+    return result
 
-d = {}
-result = 0
-for num in range(3, 10000):
-    temp = 0
-    for i in range(1, num // 2 + 1):
-        if num % i == 0:
-            temp += i
-    d[num] = temp
-    if num not in d:
-
-    else:
-        result += num
+if __name__ == '__main__':
+    print('Answer:', problem(10000))
