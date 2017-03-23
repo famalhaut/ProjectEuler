@@ -18,23 +18,30 @@ Find the value of d < 1000 for which 1/d contains the longest recurring cycle in
 fraction part.
 """
 
-result = 0
-max_cycle = 0
-for d in range(2, 10):
-    i = 1
-    r = dict()
-    idx = 1
-    while True:
-        if i < d:
-            i *= 10
-        else:
-            i = i % d
-            if i not in r:
-                r[i] = idx
+
+def problem(x):
+    result = 0
+    max_cycle = 0
+    for d in range(2, x):
+        remainder = 1
+        rs = dict()
+        idx = 1
+        while True:
+            remainder = remainder % d
+            remainder *= 10
+
+            if remainder not in rs:
+                rs[remainder] = idx
                 idx += 1
             else:
-                if max_cycle < idx - r[i]:
+                cycle_len = idx - rs[remainder]
+                if max_cycle < cycle_len:
+                    max_cycle = cycle_len
                     result = d
-            break
+                break
+    return result
 
-print(d)
+
+if __name__ == '__main__':
+    print('Test:', problem(11))
+    print('Answer:', problem(1000))
