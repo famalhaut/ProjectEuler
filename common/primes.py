@@ -43,7 +43,10 @@ def factorization(x):
 # Deterministic variants Miller-Rabin primality test.
 # for n < 3,317,044,064,679,887,385,961,981
 def miller_rabin_test(n):
-    assert (2 <= n <= 3317044064679887385961981) and isinstance(n, int)
+    assert isinstance(n, int)
+    assert n <= 3317044064679887385961981
+    if n < 2:
+        return False
     if n == 2:
         return True
     elif n % 2 == 0:
