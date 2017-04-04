@@ -36,14 +36,14 @@ def problem():
             b = c
             for d in range(1, 10):
                 if a * (10 * c + d) == d * (10 * a + b):
-                    print('{}/{}'.format(10 * a + b, 10 * c + d))
+                    print('{}/{} = {}/{}'.format(10 * a + b, 10 * c + d, a, d))
                     up *= 10 * a + b
                     down *= 10 * c + d
 
             d = a
             for b in range(1, 10):
                 if b * (10 * c + d) == c * (10 * a + b):
-                    print('{}/{}'.format(10 * a + b, 10 * c + d))
+                    print('{}/{} = {}/{}'.format(10 * a + b, 10 * c + d, b, c))
                     up *= 10 * a + b
                     down *= 10 * c + d
     return up, down

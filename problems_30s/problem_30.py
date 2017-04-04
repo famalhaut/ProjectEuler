@@ -31,12 +31,14 @@ def problem(pw):
             total += (temp % 10) ** pw
             temp //= 10
         if total == num:
+            print(num, '=', ' + '.join(map(lambda ch: ch + '^' + str(pw), str(num))))
             result.append(num)
     return result
 
 
 if __name__ == '__main__':
     answer_4 = problem(4)
+    print('Test: {sum} = {nums}'.format(sum=sum(answer_4), nums=' + '.join(map(str, answer_4))))
+    print()
     answer_5 = problem(5)
-    print('Test: {sum} {nums}'.format(sum=sum(answer_4), nums=answer_4))
-    print('Answer: {sum} {nums}'.format(sum=sum(answer_5), nums=answer_5))
+    print('Answer: {sum} = {nums}'.format(sum=sum(answer_5), nums=' + '.join(map(str, answer_5))))
