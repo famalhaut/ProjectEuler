@@ -1,31 +1,28 @@
 from common.primes import miller_rabin_test
-from itertools import permutations
 
-d = {}
-for num in range(2, 10 ** 6):
-    temp = num
-    s = []
-    while temp > 0:
-        s.append(temp % 10)
-        temp //= 10
 
-    if not ({0, 2, 4, 6, 8, 5} & set(s)):
-        q = tuple(sorted(s))
-        if q not in d:
-            res = True
-            for permut in permutations(q):
-                permut_num = 0
-                for i in permut:
-                    permut_num *= 10
-                    permut_num += i
-                if miller_rabin_test(permut_num):
-                    pass
+def problem(lim):
+    circular_primes = list(filter(lambda x: x < lim, [2, 3, 5]))
+    for num in range(7, lim, 2):
+        temp = num
+        digits = []
+        while temp > 0:
+            digits.append(temp % 10)
+            temp //= 10
+
+        if not ({0, 2, 4, 6, 8, 5} & set(digits)):
+            for _ in range(len(digits)):
+                rotation = 0
+                for i in digits:
+                    rotation *= 10
+                    rotation += i
+                if miller_rabin_test(rotation):
+                    digits = digits[1:] + digits[:1]
                 else:
-                    d[q] = False
                     break
             else:
-                d[q] = True
+                circular_primes.append(num)
+    return circular_primes
 
-for key, val in d.items():
-    if val:
-        print(key)
+if __name__ == '__main__':
+    print('Answer:', len(problem(10**6)))
