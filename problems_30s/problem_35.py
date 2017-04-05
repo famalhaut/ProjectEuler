@@ -24,5 +24,6 @@ def problem(lim):
                 circular_primes.append(num)
     return circular_primes
 
+
 if __name__ == '__main__':
     print('Answer:', len(problem(10**6)))
