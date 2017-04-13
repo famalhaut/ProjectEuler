@@ -38,7 +38,5 @@ def problem():
     return sum(result)
 
 
-from time import time
-
 if __name__ == '__main__':
     print('Answer:', problem())
