@@ -1,29 +1,44 @@
-from itertools import permutations
+"""
+Pandigital products
+Problem 32 
+We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly 
+once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
+
+The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing multiplicand, multiplier, 
+and product is 1 through 9 pandigital.
+
+Find the sum of all products whose multiplicand/multiplier/product identity can be written 
+as a 1 through 9 pandigital.
+
+HINT: Some products can be obtained in more than one way so be sure to only include it once 
+in your sum.
+"""
 
 
-def get_num(permut, ln, shift):
-    num = 0
-    for i in range(shift, shift + ln):
-        num *= 10
-        num += permut[i]
-    return num
+def problem():
+    result = set()
 
+    def _helper(a, b):
+        c = a * b
+        digits = set(str(a)) | set(str(b)) | set(str(c))
+        if len(digits - {'0'}) == 9:
+            print('{a} * {b} = {c}'.format(a=a, b=b, c=c))
+            result.add(c)
 
-result = set()
-for permut in permutations(range(1, 10)):
     # 1-digit * 4-digit = 4-digit
-    a = get_num(permut, 1, 0)
-    b = get_num(permut, 4, 1)
-    c = get_num(permut, 4, 5)
-    if a * b == c:
-        result.add(c)
+    for a in range(1, 10):
+        for b in range(1000, 10000 // a):
+            _helper(a, b)
 
     # 2-digit * 3-digit = 4-digit
-    a = get_num(permut, 2, 0)
-    b = get_num(permut, 3, 2)
-    c = get_num(permut, 4, 5)
-    if a * b == c:
-        result.add(c)
+    for a in range(10, 100):
+        for b in range(100, 10000 // a):
+            _helper(a, b)
 
-print(result)
-print(sum(result))
+    return sum(result)
+
+
+from time import time
+
+if __name__ == '__main__':
+    print('Answer:', problem())
