@@ -12,10 +12,14 @@ If dn represents the nth digit of the fractional part, find the value of the fol
 d1 × d10 × d100 × d1000 × d10000 × d100000 × d1000000
 """
 
-s = ''.join(map(str, range(1, 10 ** 6)))
-print(s[:101])
-res = 1
-for i in range(7):
-    print(10 ** i, s[10 ** i - 1], res)
-    res *= int(s[10 ** i - 1])
-print(res)
+
+def problem():
+    s = ''.join(map(str, range(1, 10 ** 6)))
+    result = 1
+    for i in range(0, 7):
+        result *= int(s[10 ** i - 1])
+    return result
+
+
+if __name__ == '__main__':
+    print('Answer:', problem())
