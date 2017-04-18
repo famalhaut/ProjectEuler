@@ -19,7 +19,7 @@ from common.primes import factorization, primes_gen
 from time import time
 import functools
 
-
+@functools.lru_cache(10)
 def foo(x, q=None):
     amount = 0
     if x == 1:
@@ -65,7 +65,7 @@ def foo(x, q=None):
 
 ############################################################################################
 
-@functools.lru_cache(5)
+@functools.lru_cache(10)
 def factorization2(x):
     return factorization(x)
 
