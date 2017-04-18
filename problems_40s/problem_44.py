@@ -12,31 +12,32 @@ Find the pair of pentagonal numbers, Pj and Pk, for which their sum and differen
 and D = |Pk − Pj| is minimised; what is the value of D?
 """
 
-#
-# def pentagon_num(x):
-#     return x * (3 * x - 1) // 2
 
-from time import time
+def problem():
+    pentagon_nums = {}
+    n, pentagon_num = 1, 0
+    break_flag = False
+    while not break_flag:
+        pentagon_num += 3 * n - 2  # == Pn
+        pentagon_nums[pentagon_num] = n
+        m, right = n, pentagon_num
+        while right > pentagon_num // 2:
+            right -= 3 * m - 2
+            m -= 1
+            diff = 2 * right - pentagon_num
+            if (diff in pentagon_nums) and ((right - diff) in pentagon_nums):
+                left = right - diff
+                i_left, i_right = pentagon_nums[left], pentagon_nums[right]
+                i_diff = pentagon_nums[diff]
+                print('P{} + P{} = {} + {} = {} = P{}'.
+                      format(i_right, i_left, right, left, pentagon_num, n))
+                print('P{} - P{} = {} - {} = {} = P{}'.
+                      format(i_right, i_left, right, left, diff, i_diff))
+                break_flag = True
+                break
+        n += 1
+    return diff
 
-st = time()
-pentagon_nums = {}
-n, pentagon_num = 1, 0
-flag = False
-while True:
-    pentagon_num += 3 * n - 2  # == Pn
-    pentagon_nums[pentagon_num] = n
-    m, right = n, pentagon_num
-    while right > pentagon_num // 2:
-        right -= 3 * m - 2
-        m -= 1
-        diff = 2 * right - pentagon_num
-        if (diff in pentagon_nums) and ((right - diff) in pentagon_nums):
-            left = right - diff
-            print('P{} + P{} = {} + {} = {} = P{}'.format(pentagon_nums[left], pentagon_nums[right], left, right, pentagon_num, n))
-            print('P{} - P{} = {} - {} = {} = P{}'.format(pentagon_nums[right], pentagon_nums[left], right, left, diff, pentagon_nums[diff]))
-            flag = True
-    n += 1
-    if flag:
-        break
 
-print(time() - st)
+if __name__ == '__main__':
+    print('Answer:', problem())
