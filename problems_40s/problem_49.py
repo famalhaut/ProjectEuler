@@ -33,7 +33,7 @@ def problem():
                 if (2 * snd - fst) in nums:
                     print(fst, snd, 2 * snd - fst)
                     if fst != 1487:
-                        result = int(''.join(map(str, [fst, snd, 2 * snd - fst])))
+                        result = ''.join(map(str, [fst, snd, 2 * snd - fst]))
     return result
 
 
